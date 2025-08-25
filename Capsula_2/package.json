@@ -1,0 +1,20 @@
+{
+  "name": "IIC2513-Taskify-Backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:IIC2513/IIC2513-Taskify-Backend.git",
+  "author": "Ignacio Peña <ignacio.p@uc.cl>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "morgan": "^1.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  }
+}
