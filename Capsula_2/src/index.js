@@ -1,14 +1,21 @@
-require("dotenv").config();
-const express = require("express");
-const app = express();
+const app = require('./app');
+const orm = require('./models');
+const dotenv = require('dotenv');
 
-const NOMBRE = process.env.NOMBRE;
+dotenv.config();
 
-app.get('/', (req, res) => {
-    res.send(`<h1>Hola ${NOMBRE}</h1>`)
-});
+const PORT = process.env.PORT || 3000;
 
+(async () => {
+  try {
+    await orm.sequelize.authenticate();
+    console.log('Connection to the database has been established successfully.');
 
-app.listen(3000, () => {
-    console.log(`Servidor corriendo ${NOMBRE}`)
-});
+    app.listen(PORT, () => {
+      console.log(`Listening on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error('Failed', err);
+    process.exit(1);
+  }
+})();
