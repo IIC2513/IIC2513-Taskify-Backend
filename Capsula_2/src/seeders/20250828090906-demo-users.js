@@ -3,12 +3,6 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    // Con bulkInsert le dices a Sequelize: 
-    // “inserta de una sola vez todos estos 
-    // objetos en la tabla indicada, asigna sus 
-    // campos a las columnas correspondientes y 
-    // márcalos con createdAt y updatedAt para que
-    //  la base quede poblada de forma rápida y consistente”
     await queryInterface.bulkInsert('Users', [
       {
         username: 'raul',
@@ -65,7 +59,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    // borra todos los registros de esta tabla que coincidan con la condición que te paso”.
     await queryInterface.bulkDelete('Tasks', null, {});
     await queryInterface.bulkDelete('Users', null, {});
   }

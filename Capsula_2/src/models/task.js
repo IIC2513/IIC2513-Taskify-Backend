@@ -12,13 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Task.belongsTo(models.User, {
         as: 'user', 
-        foreignKey: 'userId',   // columna en Tasks que guarda el id del User
+        foreignKey: 'userId',
         onDelete: 'CASCADE'
       });
     }
   }
   Task.init({
-    // Debe coincidir con la migración
     title: {
       type: DataTypes.STRING(120),
       allowNull: false,

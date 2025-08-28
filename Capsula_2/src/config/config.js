@@ -1,11 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-// Exporta un objeto con la configuración para tres entornos:
-// desarrollo, pruebas y producción. Utiliza variables de entorno para
-// la configuración de la base de datos.
-// reemplazamos los placeholders (root, null)
-//el sufijo (_development, _test, _production) es una convención útil, pero no obligatoria.
 module.exports = {
   "development": {
     "username": process.env.DB_USERNAME,

@@ -11,22 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.hasMany(models.Task, {
-        as: 'tasks', // alias para acceder a las tareas de un usuario (user.tasks)
+        as: 'tasks',
         foreignKey: 'userId',
-        onDelete: 'CASCADE', // si borras un User, se borran automáticamente sus Tasks
+        onDelete: 'CASCADE',
       });
     }
   }
   User.init({
     username: { type: DataTypes.STRING(30), allowNull: false, unique: true },
-    // unique es una restricción a nivel de base de datos
     password: { type: DataTypes.STRING(72), allowNull: false },
     level:    { type: DataTypes.INTEGER,    allowNull: false, defaultValue: 1, 
       validate: { min: 1 } }, 
-      // validación verifica los datos antes de guardarlos en la BDD
-      // es a nivel de sequelize
     experience:{type: DataTypes.INTEGER,    allowNull: false, defaultValue: 0, 
-      validate: { min: 0 } }, // evita negativos antes de guardar
+      validate: { min: 0 } },
   }, {
     sequelize,
     modelName: 'User',

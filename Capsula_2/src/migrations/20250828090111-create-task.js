@@ -12,18 +12,18 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { // crea una FK a Users.id
+        references: {
           model: 'Users',
           key: 'id'
         },
-        onDelete: 'CASCADE' // si se borra un usuario, se borran sus tareas
+        onDelete: 'CASCADE'
       },
       title: {
         type: Sequelize.STRING(120),
         allowNull: false
       },
       description: {
-        type: Sequelize.TEXT // sin límite de longitud práctico
+        type: Sequelize.TEXT
       },
       status: {
         type: Sequelize.ENUM('ACTIVE', 'COMPLETED', 'DELETED'),
