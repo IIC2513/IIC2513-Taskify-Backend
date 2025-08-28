@@ -128,3 +128,63 @@ Ejemplo de ***.gitignore***:
 node_modules/
 .env
 ```
+
+## 💻 Cápsula 3: Sequelize
+
+Se integró Sequelize al proyecto.
+
+### Comandos útiles
+
+### 📦 Comando: `yarn sequelize db:create`
+
+Este comando crea la base de datos definida en tu archivo `config/config.js` (según el entorno especificado, por defecto `development`).  
+
+- **¿Qué hace?**  
+  Ejecuta internamente la instrucción SQL `CREATE DATABASE` en tu motor (por ejemplo, PostgreSQL).  
+  Si la base ya existe, mostrará un error.
+
+- **¿Cuándo usarlo?**  
+  - La primera vez que configuras tu proyecto.  
+  - Cuando inicias un nuevo entorno (ej: en otra máquina o servidor).  
+  - Después de haber borrado la base de datos y necesitar recrearla.
+ 
+  ```bash
+  yarn sequelize db:create
+  ```
+  ### 📦 Comando: `yarn sequelize db:migrate`
+
+Este comando ejecuta todas las **migraciones pendientes** definidas en la carpeta `migrations/`.  
+
+- **¿Qué hace?**  
+  Traduce tus archivos de migración a sentencias SQL (`CREATE TABLE`, `ALTER TABLE`, etc.) y las aplica a la base de datos.  
+  Lleva un registro en la tabla `SequelizeMeta` para saber qué migraciones ya se ejecutaron.  
+
+- **¿Cuándo usarlo?**  
+  - Después de crear la base de datos (`db:create`).  
+  - Cada vez que agregas o modificas un modelo y generas nuevas migraciones.  
+  - Para mantener sincronizada la estructura de la base en todos los entornos.  
+
+```bash
+yarn sequelize db:migrate
+```
+
+---
+
+### 📦 Comando: `yarn sequelize db:seed:all`
+
+Este comando ejecuta todos los **seeders** definidos en la carpeta `seeders/`.  
+
+- **¿Qué hace?**  
+  Inserta datos iniciales o de prueba en tus tablas (usuarios de demo, tareas de ejemplo, etc.).  
+  Usa internamente `bulkInsert` para poblar los registros.  
+
+- **¿Cuándo usarlo?**  
+  - Para poblar la base de datos la primera vez que la levantas.  
+  - Cuando necesitas cargar datos de prueba en desarrollo.  
+  - Para dejar listas tablas con configuraciones base (roles, estados, etc.).  
+
+```bash
+yarn sequelize db:seed:all
+```
+
+
