@@ -5,7 +5,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('Users', [
       {
-        username: 'raul',
+        username: 'Raul Vidal',
         password: '123456',
         level: 1,
         experience: 0,
@@ -13,15 +13,15 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        username: 'bernardo',
+        username: 'Bernardo Sanchez',
         password: 'abcdef',
         level: 2,
-        experience: 50,
+        experience: 60,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        username: 'sofia',
+        username: 'Sofia Perez',
         password: 'qwerty',
         level: 3,
         experience: 120,
@@ -54,7 +54,73 @@ module.exports = {
         userId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        title: 'Lavar el auto',
+        description: 'Usar jabón especial',
+        status: 'ACTIVE',
+        userId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'Preparar presentación',
+        description: 'Diapositivas para la reunión',
+        status: 'ACTIVE',
+        userId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'Leer un libro',
+        description: 'Capítulo 5 de Clean Code',
+        status: 'ACTIVE',
+        userId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'Cocinar cena',
+        description: 'Pasta con salsa casera',
+        status: 'ACTIVE',
+        userId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'Pagar cuentas',
+        description: 'Luz y agua en línea',
+        status: 'COMPLETED',
+        userId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'Ir al supermercado',
+        description: 'Comprar verduras y frutas',
+        status: 'COMPLETED',
+        userId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'Enviar correo',
+        description: 'Responder a cliente importante',
+        status: 'COMPLETED',
+        userId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: 'Hacer backup',
+        description: 'Respaldar archivos del proyecto',
+        status: 'COMPLETED',
+        userId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
+
+      
     ], {});
   },
 
