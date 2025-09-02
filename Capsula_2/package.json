@@ -1,4 +1,4 @@
-{
+ {
   "name": "IIC2513-Taskify-Backend",
   "version": "1.0.0",
   "main": "index.js",
@@ -12,7 +12,8 @@
     "morgan": "^1.10.1",
     "pg": "^8.16.3",
     "sequelize": "^6.37.7",
-    "sequelize-cli": "^6.6.3"
+    "sequelize-cli": "^6.6.3",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
