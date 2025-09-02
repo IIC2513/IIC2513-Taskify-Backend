@@ -13,6 +13,14 @@ app.use((req, _res, next) => {
   next();
 });
 
+// Importar rutas
+const usersRouter = require('./routes/users')(orm);
+const tasksRouter = require('./routes/tasks')(orm);
+
+// Usar rutas
+app.use('/api/users', usersRouter);
+app.use('/api/tasks', tasksRouter);
+
 const NOMBRE = process.env.NOMBRE || "Taskify";
 
 app.get('/', (req, res) => {
