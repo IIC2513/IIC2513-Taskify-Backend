@@ -187,4 +187,114 @@ Este comando ejecuta todos los **seeders** definidos en la carpeta `seeders/`.
 yarn sequelize db:seed:all
 ```
 
+## 💻 Cápsula 4: Routing y CRUDs
+
+### 📖 Introducción a los Endpoints RESTful
+
+### 🗂️ Creación de la carpeta `routes/`
+Se creó la carpeta **`routes/`** para organizar los endpoints de manera modular, en esta se creo Users y Tasks para crear los endpoints.
+
+### 🌐 Métodos HTTP y su significado
+| Método | Significado | Función |
+|--------|-------------|---------|
+| **GET** | Obtener | Recuperar información (READ) |
+| **POST** | Crear | Enviar nueva información (CREATE) |
+| **PATCH** | Actualizar | Modificar parcialmente (UPDATE) |
+| **DELETE** | Eliminar | Borrar recurso (DELETE) |
+
+### 🎯 Ejemplo de códigos de estado HTTP
+
+#### ✅ Códigos 200 (Éxito)
+- **200 OK**: Solicitud exitosa
+- **201 Created**: Recurso creado
+#### ⚠️ Códigos 400 (Error cliente)
+- **400 Bad Request**: Solicitud mal formada
+- **404 Not Found**: Recurso no existe
+#### 🔴 Códigos 500 (Error servidor)
+- **500 Internal Error**: Error interno del servidor
+
+### 📋 Ejemplo Real: Endpoint PATCH /api/tasks/:id
+```javascript
+router.patch('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, description, status, userId } = req.body;
+    
+    if (!userId) {
+      return res.status(400).json({ error: "userId es requerido" });
+    }
+    
+    const task = await Task.findOne({ where: { id, userId } });
+    
+    if (!task) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+    if (title !== undefined) task.title = title;
+    if (description !== undefined) task.description = description;
+    if (status !== undefined) task.status = status;
+    await task.save();
+    if (status === 'COMPLETED' && task.status !== 'COMPLETED') {
+      await addExperience(userId, 10);
+    }
+    res.status(200).json(task);
+    
+  } catch (error) {
+    res.status(500).json({ 
+      error: "Error interno del servidor",
+      details: error.message 
+    });
+  }
+});
+```
+### 🎯 Escenarios de Respuesta
+```json
+{
+  "id": 1,
+  "title": "Tarea completada",
+  "status": "COMPLETED",
+  "userId": 1
+}
+```
+```json
+{
+  "error": "userId es requerido"
+}
+```
+```json
+{
+  "error": "Task not found"
+}
+```
+```json
+{
+  "error": "Error interno del servidor",
+  "details": "Cannot read property 'save' of null"
+}
+```
+### 📊 Lógica de Experiencia
+- **+10 XP** por cada tarea completada
+- **Fórmula**: `nivel_actual * 100 XP` para subir de nivel
+- **Experiencia acumulativa** entre niveles
+
+```javascript
+async function addExperience(userId, xp) {
+  const user = await User.findByPk(userId);
+  const newExperience = user.experience + xp;
+  const xpForNextLevel = user.level * 100;
+  
+  if (newExperience >= xpForNextLevel) {
+    user.level += 1;
+    user.experience = newExperience - xpForNextLevel;
+  } else {
+    user.experience = newExperience;
+  }
+  await user.save();
+}
+```
+
+### 🎯 Buenas prácticas implementadas
+1. **Manejo completo de errores** (400s, 404s, 500s)
+2. **Validación de datos** y existencia
+3. **Lógica de experiencia** integrada
+4. **Respuestas consistentes**
 
