@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 
 app.use(express.json()); 
-app.use(morgan(":method :url :status :response-time ms"));
+app.use(morgan("dev"));
 
 app.use((req, _res, next) => {
   req.orm = orm;
