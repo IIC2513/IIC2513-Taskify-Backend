@@ -298,3 +298,38 @@ async function addExperience(userId, xp) {
 3. **Lógica de experiencia** integrada
 4. **Respuestas consistentes**
 
+## 💻 Cápsula 5: Conexión a la API
+
+Se realiza la conexión de los endpoints del backend con la lógica del frontend
+
+### Se hicieron dos cosas principales:
+
+Instalar Morgan: Librería de Node.js que se usa en Express para registrar  las solicitudes HTTP que llegan al servidor, mostrando información como método, URL, código de estado y tiempo de respuesta.
+
+```bash 
+yarn add morgan
+```
+
+```bash 
+GET /api/tasks/13 200 3.456 ms
+```
+
+Instalar libreria CORS: librería de Node.js que permite configurar qué orígenes pueden acceder a tu servidor, facilitando el manejo de la política de seguridad Cross-Origin Resource Sharing en aplicaciones web.
+
+```bash 
+yarn add cors
+```
+
+Se agregan ambas a `app.js`
+
+```javascript
+const morgan = require("morgan");    <------
+const cors = require("cors");    <------
+const app = express();
+
+// Middlewares
+app.use(cors());    <------
+app.use(express.json());  
+app.use(morgan("dev"));    <------
+
+```
