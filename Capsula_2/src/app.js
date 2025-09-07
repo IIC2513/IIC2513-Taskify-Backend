@@ -1,12 +1,17 @@
 require("dotenv").config();
 const express = require("express");
 const orm = require("./models");
+const morgan = require("morgan");
+const cors = require("cors");
 
 const app = express();
 
 // Middlewares
 
+app.use(cors());
+
 app.use(express.json()); 
+app.use(morgan(":method :url :status :response-time ms"));
 
 app.use((req, _res, next) => {
   req.orm = orm;
