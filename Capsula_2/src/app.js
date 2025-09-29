@@ -19,12 +19,17 @@ app.use((req, _res, next) => {
 });
 
 // Importar rutas
+const authRouter = require('./routes/authentication')(orm);
 const usersRouter = require('./routes/users')(orm);
 const tasksRouter = require('./routes/tasks')(orm);
 
 // Usar rutas
+app.use('/api/auth', authRouter);
+
 app.use('/api/users', usersRouter);
-app.use('/api/tasks', tasksRouter);
+
+const requireAuth = require('./middlewares/requireAuth');
+app.use('/api/tasks', requireAuth, tasksRouter);
 
 const NOMBRE = process.env.NOMBRE || "Taskify";
 
