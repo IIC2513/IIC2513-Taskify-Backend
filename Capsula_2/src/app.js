@@ -3,6 +3,7 @@ const express = require("express");
 const orm = require("./models");
 const morgan = require("morgan");
 const cors = require("cors");
+const requireAuth = require('./middlewares/requireAuth');
 
 const app = express();
 
@@ -19,12 +20,12 @@ app.use((req, _res, next) => {
 });
 
 // Importar rutas
-const usersRouter = require('./routes/users')(orm);
+const authRouter = require('./routes/authentication')(orm);
 const tasksRouter = require('./routes/tasks')(orm);
 
 // Usar rutas
-app.use('/api/users', usersRouter);
-app.use('/api/tasks', tasksRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/tasks', requireAuth, tasksRouter);
 
 const NOMBRE = process.env.NOMBRE || "Taskify";
 
